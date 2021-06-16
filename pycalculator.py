@@ -1,32 +1,51 @@
 from calcart import logo
 
-logo()
+def add(num1, num2):
+    return num1 + num2
 
-print("\nWelcome to PyCalc!\n")
-print("Follow the prompts below to begin calculating.\n")
+def sub(num1, num2):
+    return num1 - num2
 
-def first_prompt():
-    new_calc = True
-    while new_calc == True:
-        num1 = int(input("Enter number: "))
-        calc = input("Choose an operation. Type '+' to add, '-' to subtract,\n'*' to multiply, or '/' to divide: ")
-        num2 = int(input("Enter number: "))
+def mult(num1, num2):
+    return num1 * num2
 
-        if calc == '+':
-            new_num = num1 + num2
-        elif calc == '-':
-            new_num = num1 - num2
-        elif calc == '*':
-            new_num = num1 * num2
+def div(num1, num2):
+    return num1 / num2
+
+operations = {
+    '+': add, 
+    '-': sub, 
+    '*': mult, 
+    '/': div
+}
+
+def calculate():
+    
+    print(logo)
+    print("\nWelcome to PyCalc!\n")
+    print("Follow the prompts below to begin calculating.\n")
+    
+    num1 = float(input("Enter number: "))
+
+    user_continue = True
+
+    while user_continue:
+        calc = print("Choose an operation:")
+        for i in operations:
+            print(i)
+
+        user_operation = input("\n>> ")
+        num2 = float(input("\nEnter number: "))
+        calc_function = operations[user_operation]
+        answer = calc_function(num1, num2)
+
+        print(f"\n{num1} {user_operation} {num2} = {answer}\n")
+    
+        if input(f"\nTo continue calculating with {answer}, type 'y'. To exit, type 'n': ") == 'y':
+            num1 = answer
         else:
-            new_num = num1 / num2
-        print(f"{num1} {calc} {num2}= {new_num}")
-        return new_num
-
-keep_or_start = input("To continue, type 'y'. Otherwise, type 'n' to start a new calculation: \n")
-
-def second_prompt(new_num):
-    
-
-
-    
+            user_continue = False
+            calculate()
+        
+calculate()
+        
